@@ -1,0 +1,11 @@
+.totalExpenseContainer {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-small);
+  border: 1px solid #000;
+  border-radius: 50%;
+}

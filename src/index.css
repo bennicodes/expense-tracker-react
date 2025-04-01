@@ -1,0 +1,36 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+a,
+button {
+  cursor: pointer;
+}
+
+/* Variables */
+:root {
+  /* Color */
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-tertiary: #f8f9fa;
+
+  /* Spacing */
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --spacing-xl: 4rem;
+
+  /* Font */
+  --font-family-primary: "Poppins", sans-serif;
+  --font-size-base: 1rem;
+  --font-size-medium: 1.2rem;
+  --font-size-large: 2rem;
+
+  /* Border */
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 16px;
+}

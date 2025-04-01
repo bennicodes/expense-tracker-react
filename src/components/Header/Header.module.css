@@ -1,0 +1,21 @@
+.header {
+  width: 75%;
+  padding: var(--spacing-medium);
+  margin: 0 auto;
+}
+
+.headingContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.mainTitle {
+  display: flex;
+  align-items: center;
+}
+
+.actionContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
