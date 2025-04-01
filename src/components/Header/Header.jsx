@@ -4,7 +4,10 @@ import Filter from "../Filter/Filter";
 import TotalExpenses from "../TotalExpenses/TotalExpenses";
 import styles from "./Header.module.css";
 
-const Header = () => {
+const Header = ({ openModal }) => {
+  // Display modal
+  const displayFormModal = () => {};
+
   return (
     <div className={styles.header}>
       <div className={styles.headingContainer}>
@@ -12,7 +15,7 @@ const Header = () => {
         <TotalExpenses />
       </div>
       <div className={styles.actionContainer}>
-        <Button onClick="{}" className={styles.addButton}>
+        <Button onClick={openModal} className={styles.addButton}>
           Add
         </Button>
         {/* <Filter /> */}

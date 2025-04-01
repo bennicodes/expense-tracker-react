@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "./Form.module.css";
 
-const Form = () => {
-  const closeFormModal = () => {};
+const Form = ({ isOpen, closeModal }) => {
   return (
-    <div className={styles.modalBackground}>
+    <div className={`${styles.modalOverlay} ${isOpen ? styles.show : ""}`}>
       <div className={styles.formContainer}>
         <h2>Add New Expense</h2>
         <form className={styles.form}>
@@ -58,6 +57,7 @@ const Form = () => {
             </button>
             <button
               type="button"
+              onClick={closeModal}
               className={`${styles.formButton} ${styles.closeButton}`}
             >
               Close
