@@ -13,9 +13,9 @@ button {
 /* Variables */
 :root {
   /* Color */
-  --color-primary: #007bff;
-  --color-secondary: #6c757d;
-  --color-tertiary: #f8f9fa;
+  --color-button: #007bff;
+  --color-hover: #6c757d;
+  --color-background: #f8f9fa;
 
   /* Spacing */
   --spacing-small: 0.5rem;

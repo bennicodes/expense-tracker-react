@@ -1,15 +1,15 @@
 .addButton {
   width: 150px;
   height: 32px;
-  background-color: var(--color-primary);
-  color: var(--color-tertiary);
+  background-color: var(--color-button);
+  color: var(--color-background);
   border: none;
   border-radius: var(--border-radius-medium);
 }
 
 .addButton:hover {
   transition: 0.3s ease;
-  background-color: var(--color-secondary);
+  background-color: var(--color-hover);
 }
 .addButton:active {
   transition: 0s;

@@ -1,0 +1,12 @@
+.expenseList {
+  width: 75%;
+  padding: var(--spacing-medium);
+  margin: var(--spacing-medium) auto;
+  display: flex;
+}
+
+.expenseParagraph {
+  width: 100%;
+  text-align: center;
+  font-size: var(--font-size-medium);
+}

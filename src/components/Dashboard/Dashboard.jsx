@@ -2,12 +2,9 @@ import React from "react";
 import Button from "../Button/Button";
 import Filter from "../Filter/Filter";
 import TotalExpenses from "../TotalExpenses/TotalExpenses";
-import styles from "./Header.module.css";
+import styles from "./Dashboard.module.css";
 
-const Header = ({ openModal }) => {
-  // Display modal
-  const displayFormModal = () => {};
-
+const Dashboard = ({ openModal }) => {
   return (
     <div className={styles.header}>
       <div className={styles.headingContainer}>
@@ -24,4 +21,4 @@ const Header = ({ openModal }) => {
   );
 };
 
-export default Header;
+export default Dashboard;
