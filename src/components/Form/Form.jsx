@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./Form.module.css";
+import Button from "../Button/Button";
 
 const Form = ({ closeModal, addExpense }) => {
   const [expenseList, setExpenseList] = useState([]);
@@ -59,13 +60,13 @@ const Form = ({ closeModal, addExpense }) => {
           <label htmlFor="expenseCategory">Category:</label>
           <select id="expenseCategory" name="expenseCategory" required>
             <option value="">Select Category</option>
-            <option value="groceries">Housing</option>
-            <option value="eatingOut">Utilities</option>
-            <option value="eatingOut">Grocery</option>
+            <option value="housing">Housing</option>
+            <option value="utilities">Utilities</option>
+            <option value="grocery">Grocery</option>
             <option value="transportation">Transportation</option>
             <option value="entertainment">Clothing</option>
-            <option value="miscellaneous">Entertainment</option>
-            <option value="miscellaneous">Other</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="other">Other</option>
           </select>
         </div>
 

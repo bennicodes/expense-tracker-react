@@ -6,17 +6,14 @@ import styles from "./Dashboard.module.css";
 
 const Dashboard = ({ openModal }) => {
   return (
-    <div className={styles.header}>
-      <div className={styles.headingContainer}>
+    <div className={styles.dashboard}>
+      <div className={styles.dashboardContainer}>
         <h1 className={styles.mainTitle}>Expense Tracker</h1>
-        <TotalExpenses />
-      </div>
-      <div className={styles.actionContainer}>
         <Button onClick={openModal} className={styles.addButton}>
           Add
         </Button>
-        {/* <Filter /> */}
       </div>
+      <TotalExpenses />
     </div>
   );
 };
