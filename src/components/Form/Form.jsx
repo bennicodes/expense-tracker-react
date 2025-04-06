@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import styles from "./Form.module.css";
 import Button from "../Button/Button";
+import styles from "./Form.module.css";
 
 const Form = ({ closeModal, addExpense }) => {
-  const [expenseList, setExpenseList] = useState([]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

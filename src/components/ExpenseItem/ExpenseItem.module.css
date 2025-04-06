@@ -1,21 +1,9 @@
-.expenseItem {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  gap: var(--spacing-medium);
+.expenseRow td {
+    border-left: 1px solid #c5c5c5;
+    border-right: 1px solid #c5c5c5;
+  padding: var(--spacing-small);
 }
-.expenseItem h3 {
-  display: flex;
-  align-items: center;
-  flex-basis: 20%;
-}
-.expenseItem span {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-small);
-  flex-basis: 20%;
-}
+
 .actionContainer {
   display: flex;
   justify-content: center;
