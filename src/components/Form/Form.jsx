@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../Button/Button";
+import FormValidation from "../FormValidation/FormValidation";
 import styles from "./Form.module.css";
 
 const Form = ({ closeModal, addExpense }) => {
+  // User feedback
+  const { error, validate, clearError } = FormValidation();
+  const [success, setSuccess] = useState("");
+
+  // Submit logic
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -18,8 +25,22 @@ const Form = ({ closeModal, addExpense }) => {
       date: new Date(expense.expenseDate),
     };
 
+    // Validate the form data
+    const isValid = validate(newExpense);
+    if (!isValid) return;
+
+    // Add the expense to the expenses array
     addExpense(newExpense);
     e.target.reset();
+
+    setSuccess("Expense added successfully!");
+    setTimeout(() => {
+      setSuccess("");
+    }, 3000);
+  };
+
+  const handleChange = () => {
+    clearError();
   };
 
   return (
@@ -33,7 +54,7 @@ const Form = ({ closeModal, addExpense }) => {
             id="expenseName"
             name="expenseName"
             placeholder="e.g Electricity Bill"
-            required
+            onChange={handleChange}
           />
         </div>
 
@@ -45,17 +66,27 @@ const Form = ({ closeModal, addExpense }) => {
             name="expenseAmount"
             placeholder="e.g $1000"
             step={5}
-            required
+            onChange={handleChange}
           />
         </div>
 
         <div className={styles.formGroup}>
           <label htmlFor="expenseDate">Due Date:</label>
-          <input type="date" id="expenseDate" name="expenseDate" required />
+          <input
+            type="date"
+            id="expenseDate"
+            name="expenseDate"
+            onChange={handleChange}
+          />
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="expenseCategory">Category:</label>
-          <select id="expenseCategory" name="expenseCategory" required>
+          <select
+            id="expenseCategory"
+            name="expenseCategory"
+            onChange={handleChange}
+          >
             <option value="">Select Category</option>
             <option value="housing">Housing</option>
             <option value="utilities">Utilities</option>
@@ -67,6 +98,10 @@ const Form = ({ closeModal, addExpense }) => {
           </select>
         </div>
 
+        {/* Validation Message */}
+        {error && <p className={styles.error}>{error}</p>}
+        {success && <p className={styles.success}>{success}</p>}
+
         <div className={styles.buttonContainer}>
           <button
             type="submit"
@@ -76,7 +111,10 @@ const Form = ({ closeModal, addExpense }) => {
           </button>
           <button
             type="button"
-            onClick={closeModal}
+            onClick={() => {
+              closeModal();
+              clearError();
+            }}
             className={`${styles.formButton} ${styles.closeButton}`}
           >
             Close

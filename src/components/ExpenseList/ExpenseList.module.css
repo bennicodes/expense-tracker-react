@@ -4,19 +4,23 @@
   justify-content: center;
   align-items: center;
   padding: var(--spacing-large) 0;
+}
+
+.tableScrollWrapper {
+  max-height: 500px;
+  overflow-y: auto;
   overflow-x: auto;
+  width: 75%;
+  margin: 0 auto;
+  scrollbar-width: none;
 }
 
 .expenseTable {
   background-color: var(--color-list-background);
-  width: 75%;
-  max-height: 500px;
-  padding: 0 var(--spacing-large);
-  margin: 0 auto;
+  width: 100%;
+  padding: var(--spacing-large);
   border-radius: var(--border-radius-medium);
-  border-collapse: collapse; /* Ensures no double borders */
-  overflow-y: auto;
-  scrollbar-width: none;
+  border-collapse: collapse;
   position: relative;
 }
 
@@ -38,7 +42,7 @@ thead {
 th,
 td {
   padding: var(--spacing-small);
-  border: 1px solid #c5c5c5; /* Ensure single border */
+  border: 1px solid #c5c5c5;
   text-align: left;
 }
 

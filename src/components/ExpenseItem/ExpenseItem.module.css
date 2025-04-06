@@ -1,14 +1,7 @@
-.expenseRow td {
-    border-left: 1px solid #c5c5c5;
-    border-right: 1px solid #c5c5c5;
-  padding: var(--spacing-small);
-}
-
 .actionContainer {
   display: flex;
   justify-content: center;
   gap: var(--spacing-small);
-  flex-basis: 20%;
 }
 .actionButton {
   background-color: var(--color-button);
