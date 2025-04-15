@@ -4,7 +4,7 @@ import Filter from "../Filter/Filter";
 import TotalExpenses from "../TotalExpenses/TotalExpenses";
 import styles from "./Dashboard.module.css";
 
-const Dashboard = ({ openModal }) => {
+const Dashboard = ({ openModal, totalExpenses }) => {
   return (
     <div className={styles.dashboard}>
       <div className={styles.dashboardContainer}>
@@ -13,7 +13,7 @@ const Dashboard = ({ openModal }) => {
           Add
         </Button>
       </div>
-      <TotalExpenses />
+      <TotalExpenses total={totalExpenses} />
     </div>
   );
 };

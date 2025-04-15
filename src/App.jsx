@@ -48,6 +48,12 @@ function App() {
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 
+  // Calculate the total expenses
+  const totalExpenses = expenses.reduce(
+    (total, expense) => total + expense.amount,
+    0
+  );
+
   // Open modal function
   const openModal = () => setIsModalOpen(true);
 
@@ -76,7 +82,7 @@ function App() {
 
   return (
     <div className={styles.rootContainer}>
-      <Dashboard openModal={openModal} />
+      <Dashboard openModal={openModal} totalExpenses={totalExpenses} />
       {isModalOpen && (
         <Modal isOpen={isModalOpen} closeModal={closeModal}>
           <Form
