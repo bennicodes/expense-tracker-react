@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
-import Form from "./components/Form/Form";
+import Form from "./components/FormModal/Form";
 import Modal from "./components/Modal/Modal";
 
 function App() {
@@ -38,6 +38,13 @@ function App() {
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 
+  // Function to delete an expense
+  const deleteExpense = (id) => {
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    setExpenses(updatedExpenses);
+    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  };
+
   // Open modal function
   const openModal = () => setIsModalOpen(true);
 
@@ -66,7 +73,11 @@ function App() {
           />
         </Modal>
       )}
-      <ExpenseList expenses={expenses} onEdit={startEditing} />
+      <ExpenseList
+        expenses={expenses}
+        onEdit={startEditing}
+        deleteExpense={deleteExpense}
+      />
     </div>
   );
 }

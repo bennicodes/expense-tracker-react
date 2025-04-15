@@ -11,10 +11,6 @@ const ExpenseItem = ({ expense, onEdit, deleteExpense }) => {
   const capitalizedCategory =
     expense.category.charAt(0).toUpperCase() + expense.category.slice(1);
 
-  const handleEdit = () => {
-    editExpense(expense); // Logic to edit the expense
-  };
-
   const handleDelete = () => {
     deleteExpense(expense.id); // Logic to delete the expense
   };
@@ -29,7 +25,7 @@ const ExpenseItem = ({ expense, onEdit, deleteExpense }) => {
         <Button
           type="button"
           className={`${styles.actionButton} ${styles.editButton}`}
-          onClick={()=>onEdit(expense)}
+          onClick={() => onEdit(expense)}
         >
           Edit
         </Button>
