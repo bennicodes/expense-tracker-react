@@ -59,9 +59,15 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
       return false;
     }
 
+    const dateFormat = /^\d{4}-\d{2}-\d{2}$/;
     if (!date) {
       setError("Date is required!");
       return false;
+    } else if (!dateFormat.test(date)) {
+      setError(
+        "Invalid date format. Please use the correct format YYYY-MM-DD."
+      );
+      return;
     }
 
     if (!category) {
