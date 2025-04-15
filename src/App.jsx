@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.css";
 import Dashboard from "./components/Dashboard/Dashboard";
+import DeleteModal from "./components/DeleteModal/DeleteModal";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
 import Form from "./components/FormModal/Form";
 import Modal from "./components/Modal/Modal";
@@ -9,6 +10,8 @@ function App() {
   const [expenses, setExpenses] = useState([]);
   const [editingExpense, setEditingExpense] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedExpenseId, setSelectedExpenseId] = useState(null);
 
   useEffect(() => {
     const storedExpenses = localStorage.getItem("expenses");
@@ -60,6 +63,17 @@ function App() {
     openModal();
   };
 
+  // Function to open delete modal
+  const openDeleteModal = (expenseId) => {
+    setSelectedExpenseId(expenseId); // Set expense ID to be deleted
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedExpenseId(null);
+  };
+
   return (
     <div className={styles.rootContainer}>
       <Dashboard openModal={openModal} />
@@ -76,7 +90,16 @@ function App() {
       <ExpenseList
         expenses={expenses}
         onEdit={startEditing}
-        deleteExpense={deleteExpense}
+        openDeleteModal={openDeleteModal}
+      />
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        confirmDelete={() => {
+          deleteExpense(selectedExpenseId);
+          closeDeleteModal();
+        }}
+        expenseName={expenses.find((exp) => exp.id === selectedExpenseId)?.name}
+        closeModal={closeDeleteModal}
       />
     </div>
   );

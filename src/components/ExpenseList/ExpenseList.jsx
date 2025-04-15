@@ -1,7 +1,7 @@
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import styles from "./ExpenseList.module.css";
 
-const ExpenseList = ({ expenses, onEdit, deleteExpense }) => {
+const ExpenseList = ({ expenses, onEdit, openDeleteModal }) => {
   return (
     <div className={styles.expenseListContainer}>
       {expenses.length > 0 ? (
@@ -22,7 +22,7 @@ const ExpenseList = ({ expenses, onEdit, deleteExpense }) => {
                   key={expense.id}
                   expense={expense}
                   onEdit={onEdit}
-                  deleteExpense={deleteExpense}
+                  openDeleteModal={openDeleteModal}
                 />
               ))}
             </tbody>
