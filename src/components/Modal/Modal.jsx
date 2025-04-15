@@ -1,11 +1,18 @@
-import React from "react";
-import Form from "../Form/Form";
 import styles from "./Modal.module.css";
 
-const Modal = ({ isOpen, children }) => {
+const Modal = ({ isOpen, closeModal, children }) => {
+  if (!isOpen) return null;
+  const renderModal = isOpen ? { display: "flex" } : { display: "none" };
+
   return (
-    <div className={`${styles.modalOverlay} ${isOpen ? styles.show : ""}`}>
-      <div className={styles.modalContent}>{children}</div>
+    <div
+      className={styles.modalOverlay}
+      style={renderModal}
+      onClick={closeModal}
+    >
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 };

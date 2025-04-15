@@ -1,5 +1,5 @@
 .addButton {
-  width: 150px;
+  max-width: 150px;
   height: 32px;
   background-color: var(--color-button);
   color: var(--color-background);

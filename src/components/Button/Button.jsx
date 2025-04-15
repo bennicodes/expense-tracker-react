@@ -1,9 +1,13 @@
 import React from "react";
 import styles from "./Button.module.css";
 
-const Button = ({ onClick, className, children }) => {
+const Button = ({ onClick, className, children, type = "button" }) => {
   return (
-    <button onClick={onClick} className={`${className} ${styles.addButton}`}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`${className} ${styles.addButton}`}
+    >
       {children}
     </button>
   );

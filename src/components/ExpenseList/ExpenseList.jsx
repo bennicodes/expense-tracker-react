@@ -1,8 +1,7 @@
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import styles from "./ExpenseList.module.css";
 
-// TODO: fix styling
-const ExpenseList = ({ expenses }) => {
+const ExpenseList = ({ expenses, onEdit, deleteExpense }) => {
   return (
     <div className={styles.expenseListContainer}>
       {expenses.length > 0 ? (
@@ -19,7 +18,12 @@ const ExpenseList = ({ expenses }) => {
             </thead>
             <tbody>
               {expenses.map((expense) => (
-                <ExpenseItem key={expense.id} expense={expense} />
+                <ExpenseItem
+                  key={expense.id}
+                  expense={expense}
+                  onEdit={onEdit}
+                  deleteExpense={deleteExpense}
+                />
               ))}
             </tbody>
           </table>
