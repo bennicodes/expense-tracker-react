@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
-import Filter from "../Filter/Filter";
+import Filter from "../CategoryTabs/CategoryTabs";
 import TotalExpenses from "../TotalExpenses/TotalExpenses";
 import styles from "./Dashboard.module.css";
 

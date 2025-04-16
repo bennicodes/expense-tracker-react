@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { category_options } from "../../data/constants/categories";
 import Button from "../Button/Button";
 import styles from "./Form.module.css";
 
@@ -171,13 +172,11 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
             className={styles.formSelect}
           >
             <option value="">Select Category</option>
-            <option value="housing">Housing</option>
-            <option value="utilities">Utilities</option>
-            <option value="grocery">Grocery</option>
-            <option value="transportation">Transportation</option>
-            <option value="clothing">Clothing</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="other">Other</option>
+            {category_options.map((category) => (
+              <option key={category} value={category}>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </option>
+            ))}
           </select>
         </div>
 

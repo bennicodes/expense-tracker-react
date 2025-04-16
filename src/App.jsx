@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.css";
+import CategoryTabs from "./components/CategoryTabs/CategoryTabs";
 import Dashboard from "./components/Dashboard/Dashboard";
 import DeleteModal from "./components/DeleteModal/DeleteModal";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
-import Form from "./components/FormModal/Form";
+import Form from "./components/Form/Form";
 import Modal from "./components/Modal/Modal";
 
 function App() {
@@ -54,6 +55,13 @@ function App() {
     0
   );
 
+  // Category filter
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const filteredExpenses =
+    selectedCategory === "All"
+      ? expenses
+      : expenses.filter((expense) => expense.category === selectedCategory);
+
   // Open modal function
   const openModal = () => setIsModalOpen(true);
 
@@ -93,11 +101,19 @@ function App() {
           />
         </Modal>
       )}
-      <ExpenseList
+      <CategoryTabs
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
         expenses={expenses}
-        onEdit={startEditing}
-        openDeleteModal={openDeleteModal}
       />
+      <div className={styles.tableContainer}>
+        <ExpenseList
+          expenses={filteredExpenses}
+          onEdit={startEditing}
+          openDeleteModal={openDeleteModal}
+        />
+      </div>
+
       <DeleteModal
         isOpen={isDeleteModalOpen}
         confirmDelete={() => {

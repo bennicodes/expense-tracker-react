@@ -1,8 +1,10 @@
 .dashboard {
+  background-color: var(--color-list-background);
   width: 75%;
   display: flex;
-  padding-top: var(--spacing-medium);
-  margin: 0 auto var(--spacing-large) auto;
+  padding: var(--spacing-large);
+  margin: 0 auto;
+  border-radius: var(--border-radius-large);
 }
 
 .dashboardContainer {

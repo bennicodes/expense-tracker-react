@@ -3,16 +3,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-large) 0;
 }
 
 .tableScrollWrapper {
-  max-height: 500px;
+  max-height: 400px;
   overflow-y: auto;
   overflow-x: auto;
   width: 75%;
   margin: 0 auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
 }
 
 .expenseTable {
