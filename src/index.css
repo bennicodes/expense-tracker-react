@@ -1,4 +1,10 @@
-/* Reset */
+/* Import ------------ */
+@font-face {
+  font-family: Open-Sans-regular;
+  src: url(./assets/Fonts/OpenSans-Regular.ttf);
+}
+
+/* Reset ---------------- */
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +16,7 @@ button {
   cursor: pointer;
 }
 
-/* Variables */
+/* Variables ---------------- */
 :root {
   /* Color */
   --color-list-background: #fff;
@@ -25,7 +31,7 @@ button {
   --spacing-xl: 4rem;
 
   /* Font */
-  --font-family-primary: "Poppins", sans-serif;
+  --font-family-primary: "Open-Sans-regular", sans-serif;
   --font-size-base: 1rem;
   --font-size-medium: 1.2rem;
   --font-size-large: 2rem;
@@ -34,4 +40,23 @@ button {
   --border-radius-small: 4px;
   --border-radius-medium: 8px;
   --border-radius-large: 16px;
+}
+
+/* Media queries ------------------- */
+@media (max-width: 768px) {
+  #root {
+    min-width: 340px;
+  }
+  .heroContainer {
+    width: 100%;
+    padding: var(--spacing-medium) 0;
+  }
+
+  .tableScrollWrapper {
+    width: 100%;
+  }
+
+  .expenseTable {
+    padding: var(--spacing-medium);
+  }
 }

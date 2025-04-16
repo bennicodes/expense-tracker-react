@@ -5,9 +5,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-small);
+  padding: 0 var(--spacing-medium);
   gap: var(--spacing-small);
   border: 1px solid #000;
   border-radius: 50%;
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .totalExpenseContainer {
+  }
 }

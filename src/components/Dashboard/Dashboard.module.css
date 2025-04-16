@@ -4,6 +4,7 @@
   display: flex;
   padding: var(--spacing-large);
   margin: 0 auto;
+  gap: var(--spacing-medium);
   border-radius: var(--border-radius-large);
 }
 
@@ -19,11 +20,20 @@
   align-items: center;
 }
 
-.actionContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
 .addButton {
   margin-left: var(--spacing-large);
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard {
+    width: 90%;
+    padding: var(--spacing-medium);
+  }
+  .dashboardContainer {
+    width: 100%;
+  }
+
+  .addButton {
+    margin-left: 0;
+  }
 }

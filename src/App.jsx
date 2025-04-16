@@ -6,6 +6,7 @@ import DeleteModal from "./components/DeleteModal/DeleteModal";
 import ExpenseList from "./components/ExpenseList/ExpenseList";
 import Form from "./components/Form/Form";
 import Modal from "./components/Modal/Modal";
+import MonthDropdownFilter from "./components/MonthFilter/MonthDropdownFilter";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
@@ -14,20 +15,21 @@ function App() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedExpenseId, setSelectedExpenseId] = useState(null);
 
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedMonth, setSelectedMonth] = useState(0); // 0 = All months
+
   useEffect(() => {
     const storedExpenses = localStorage.getItem("expenses");
     const parsedExpenses = storedExpenses ? JSON.parse(storedExpenses) : [];
     setExpenses(parsedExpenses);
   }, []);
 
-  // Function to add a new expense
   const addExpense = (expense) => {
     const updatedExpenses = [...expenses, expense];
     setExpenses(updatedExpenses);
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 
-  // Function to edit an expense
   const editExpense = (updatedExpense) => {
     const normalizedExpense = {
       ...updatedExpense,
@@ -42,44 +44,42 @@ function App() {
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 
-  // Function to delete an expense
   const deleteExpense = (id) => {
     const updatedExpenses = expenses.filter((expense) => expense.id !== id);
     setExpenses(updatedExpenses);
     localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
   };
 
-  // Calculate the total expenses
   const totalExpenses = expenses.reduce(
     (total, expense) => total + expense.amount,
     0
   );
 
-  // Category filter
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const filteredExpenses =
-    selectedCategory === "All"
-      ? expenses
-      : expenses.filter((expense) => expense.category === selectedCategory);
+  //  Category filter + Month filter
+  const filteredExpenses = expenses.filter((expense) => {
+    const categoryMatch =
+      selectedCategory === "All" || expense.category === selectedCategory;
 
-  // Open modal function
+    const month = new Date(expense.date).getMonth() + 1;
+    const monthMatch = selectedMonth === 0 || month === selectedMonth;
+
+    return categoryMatch && monthMatch;
+  });
+
   const openModal = () => setIsModalOpen(true);
 
-  // Close modal function
   const closeModal = () => {
     setIsModalOpen(false);
     setEditingExpense(null);
   };
 
-  // Function to start editing an expense
   const startEditing = (expense) => {
     setEditingExpense(expense);
     openModal();
   };
 
-  // Function to open delete modal
   const openDeleteModal = (expenseId) => {
-    setSelectedExpenseId(expenseId); // Set expense ID to be deleted
+    setSelectedExpenseId(expenseId);
     setIsDeleteModalOpen(true);
   };
 
@@ -91,6 +91,7 @@ function App() {
   return (
     <div className={styles.rootContainer}>
       <Dashboard openModal={openModal} totalExpenses={totalExpenses} />
+
       {isModalOpen && (
         <Modal isOpen={isModalOpen} closeModal={closeModal}>
           <Form
@@ -101,12 +102,18 @@ function App() {
           />
         </Modal>
       )}
+
       <CategoryTabs
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
         expenses={expenses}
       />
-      <div className={styles.tableContainer}>
+
+      <div className={styles.heroContainer}>
+        <MonthDropdownFilter
+          selectedMonth={selectedMonth}
+          setSelectedMonth={setSelectedMonth}
+        />
         <ExpenseList
           expenses={filteredExpenses}
           onEdit={startEditing}
