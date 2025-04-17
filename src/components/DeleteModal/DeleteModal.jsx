@@ -8,7 +8,7 @@ const DeleteModal = ({ isOpen, closeModal, confirmDelete, expenseName }) => {
     <Modal isOpen={isOpen} closeModal={closeModal}>
       <h2 className={styles.title}>Confirm Delete</h2>
       <p className={styles.deleteMessage}>
-        Are you sure you want to delete <strong>{expenseName}</strong>?
+        Are you sure you want to delete <strong>"{expenseName}"</strong>?
       </p>
       <div className={styles.buttonContainer}>
         <Button

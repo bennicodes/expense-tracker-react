@@ -21,3 +21,17 @@
   margin: auto;
   border-radius: var(--border-radius-medium);
 }
+
+@media screen and (max-width: 768px) {
+  .modalContent {
+    width: 75%;
+  }
+
+}
+
+@media screen and (max-width: 475px) {
+  .modalContent {
+    width: 90%;
+  }
+
+}
