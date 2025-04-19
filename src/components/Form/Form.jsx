@@ -15,7 +15,7 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
   const expenseDateRef = useRef(null);
   const expenseCategoryRef = useRef(null);
 
-  // Reset form on open
+  // Reset form on open if not in edit mode
   useEffect(() => {
     if (initialExpense) {
       // Ensure date is in ISO string format
@@ -146,6 +146,7 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
             id="expenseAmount"
             name="expenseAmount"
             placeholder="e.g. 1000"
+            min={0}
             step={5}
             ref={expenseAmountRef}
             className={styles.formInput}

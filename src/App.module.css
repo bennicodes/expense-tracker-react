@@ -33,7 +33,6 @@ body {
 @media screen and (max-width: 768px) {
   .rootContainer {
     width: 100%;
-    /* padding: var(--spacing-medium) 0; */
   }
 
   .heroContainer {
