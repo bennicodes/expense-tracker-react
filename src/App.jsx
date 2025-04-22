@@ -9,7 +9,9 @@ import Modal from "./components/Modal/Modal";
 import MonthDropdownFilter from "./components/MonthFilter/MonthDropdownFilter";
 
 function App() {
+  // State variables
   const [expenses, setExpenses] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -22,32 +24,38 @@ function App() {
     const storedExpenses = localStorage.getItem("expenses");
     const parsedExpenses = storedExpenses ? JSON.parse(storedExpenses) : [];
     setExpenses(parsedExpenses);
+    setHasLoaded(true); // unlock saving
   }, []);
 
+  useEffect(() => {
+    if (hasLoaded) {
+      localStorage.setItem("expenses", JSON.stringify(expenses));
+    }
+  }, [expenses, hasLoaded]);
+
   const addExpense = (expense) => {
-    const updatedExpenses = [...expenses, expense];
-    setExpenses(updatedExpenses);
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+    setExpenses((prev) => [...prev, expense]);
   };
 
   const editExpense = (updatedExpense) => {
     const normalizedExpense = {
       ...updatedExpense,
-      date: new Date(updatedExpense.date).toISOString(),
+      date: new Date(updatedExpense.date).toISOString().slice(0, 10),
     };
 
     const updatedExpenses = expenses.map((expense) =>
       expense.id === normalizedExpense.id ? normalizedExpense : expense
     );
 
-    setExpenses(updatedExpenses);
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+    setExpenses((prev) =>
+      prev.map((expense) =>
+        expense.id === normalizedExpense.id ? normalizedExpense : expense
+      )
+    );
   };
 
   const deleteExpense = (id) => {
-    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
-    setExpenses(updatedExpenses);
-    localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+    setExpenses((prev) => prev.filter((expense) => expense.id !== id));
   };
 
   const totalExpenses = expenses.reduce(

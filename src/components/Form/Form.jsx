@@ -9,30 +9,27 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Refs for form fields
-  const expenseNameRef = useRef(null);
-  const expenseAmountRef = useRef(null);
-  const expenseDateRef = useRef(null);
-  const expenseCategoryRef = useRef(null);
+  // useStates for form fields
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
+  const [date, setDate] = useState("");
+  const [category, setCategory] = useState("");
 
   // Reset form on open if not in edit mode
   useEffect(() => {
     if (initialExpense) {
       // Ensure date is in ISO string format
-      const dateString =
-        initialExpense.date instanceof Date
-          ? initialExpense.date.toISOString().slice(0, 10)
-          : initialExpense.date.slice(0, 10);
+      const formattedDate = initialExpense.date.slice(0, 10);
 
-      expenseNameRef.current.value = initialExpense.name;
-      expenseAmountRef.current.value = initialExpense.amount;
-      expenseDateRef.current.value = dateString;
-      expenseCategoryRef.current.value = initialExpense.category;
+      setName(initialExpense.name);
+      setAmount(initialExpense.amount);
+      setDate(formattedDate);
+      setCategory(initialExpense.category);
     } else {
-      expenseNameRef.current.value = "";
-      expenseAmountRef.current.value = "";
-      expenseDateRef.current.value = "";
-      expenseCategoryRef.current.value = "";
+      setName("");
+      setAmount("");
+      setDate("");
+      setCategory("");
     }
     setError("");
     setSuccess("");
@@ -40,42 +37,18 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
 
   // Validation logic
   const handleValidation = () => {
-    const name = expenseNameRef.current.value.trim();
-    const amount = parseFloat(expenseAmountRef.current.value);
-    const date = expenseDateRef.current.value;
-    const category = expenseCategoryRef.current.value;
-
-    if (!name) {
-      setError("Expense name is required!");
-      return false;
-    }
-
-    if (!amount || isNaN(amount)) {
-      setError("Amount must be a valid number!");
-      return false;
-    }
-
-    if (amount <= 0) {
-      setError("Amount must be greater than 0!");
-      return false;
-    }
+    if (!name.trim()) return setError("Expense name is required!");
+    if (!amount || isNaN(amount))
+      return setError("Amount must be a valid number!");
+    if (amount <= 0) return setError("Amount must be greater than 0!");
 
     const dateFormat = /^\d{4}-\d{2}-\d{2}$/;
-    if (!date) {
-      setError("Date is required!");
-      return false;
-    } else if (!dateFormat.test(date)) {
-      setError(
-        "Invalid date format. Please use the correct format YYYY-MM-DD."
-      );
-      return;
+    if (!date) return setError("Date is required!");
+    if (!dateFormat.test(date)) {
+      return setError("Invalid date format. Use YYYY-MM-DD.");
     }
 
-    if (!category) {
-      setError("Please select a category!");
-      return false;
-    }
-
+    if (!category) return setError("Please select a category!");
     setError("");
     return true;
   };
@@ -84,38 +57,40 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const isFormValid = handleValidation();
-    if (!isFormValid) return;
+    if (!handleValidation()) return;
 
     const newExpense = {
       id: isEdit ? initialExpense.id : uuidv4(),
-      name: expenseNameRef.current.value.trim(),
-      amount: parseFloat(expenseAmountRef.current.value),
-      date: new Date(expenseDateRef.current.value),
-      category: expenseCategoryRef.current.value,
+      name: name.trim(),
+      amount: parseFloat(amount),
+      date: date,
+      category: category,
     };
 
     // Call add or edit function based on which state the form is in
     isEdit ? editExpense(newExpense) : addExpense(newExpense);
 
     // Clear form
-    expenseNameRef.current.value = "";
-    expenseAmountRef.current.value = "";
-    expenseDateRef.current.value = "";
-    expenseCategoryRef.current.value = "";
+    setName("");
+    setAmount("");
+    setDate("");
+    setCategory("");
 
     setSuccess(
       isEdit ? "Expense edited successfully!" : "Expense added successfully!"
     );
     setTimeout(() => setSuccess(""), 3000);
+
+    // Automatically close modal if in Edit state
+    if (isEdit) closeModal();
   };
 
   const handleClose = () => {
     closeModal();
-    expenseNameRef.current.value = "";
-    expenseAmountRef.current.value = "";
-    expenseDateRef.current.value = "";
-    expenseCategoryRef.current.value = "";
+    setName("");
+    setAmount("");
+    setDate("");
+    setCategory("");
     setError("");
     setSuccess("");
   };
@@ -133,8 +108,9 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
             type="text"
             id="expenseName"
             name="expenseName"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Electricity Bill"
-            ref={expenseNameRef}
             className={styles.formInput}
           />
         </div>
@@ -145,10 +121,11 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
             type="number"
             id="expenseAmount"
             name="expenseAmount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             placeholder="e.g. 1000"
             min={0}
             step={5}
-            ref={expenseAmountRef}
             className={styles.formInput}
           />
         </div>
@@ -159,7 +136,8 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
             type="date"
             id="expenseDate"
             name="expenseDate"
-            ref={expenseDateRef}
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             className={styles.formInput}
           />
         </div>
@@ -169,7 +147,8 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
           <select
             id="expenseCategory"
             name="expenseCategory"
-            ref={expenseCategoryRef}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             className={styles.formSelect}
           >
             <option value="">Select Category</option>
