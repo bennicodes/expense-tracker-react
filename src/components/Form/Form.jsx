@@ -125,7 +125,6 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
             onChange={(e) => setAmount(e.target.value)}
             placeholder="e.g. 1000"
             min={0}
-            step={5}
             className={styles.formInput}
           />
         </div>

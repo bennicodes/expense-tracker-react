@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./App.module.css";
 import CategoryTabs from "./components/CategoryTabs/CategoryTabs";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -11,27 +11,29 @@ import MonthDropdownFilter from "./components/MonthFilter/MonthDropdownFilter";
 function App() {
   // State variables
   const [expenses, setExpenses] = useState([]);
-  const [hasLoaded, setHasLoaded] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedExpenseId, setSelectedExpenseId] = useState(null);
-
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedMonth, setSelectedMonth] = useState(0); // 0 = All months
 
-  useEffect(() => {
-    const storedExpenses = localStorage.getItem("expenses");
-    const parsedExpenses = storedExpenses ? JSON.parse(storedExpenses) : [];
-    setExpenses(parsedExpenses);
-    setHasLoaded(true); // unlock saved expenses
-  }, []);
+  const hasMounted = useRef(false);
 
-  useEffect(() => {
-    if (hasLoaded) {
-      localStorage.setItem("expenses", JSON.stringify(expenses));
-    }
-  }, [expenses, hasLoaded]);
+useEffect(() => {
+  const storedExpenses = localStorage.getItem("expenses");
+  if (storedExpenses) {
+    setExpenses(JSON.parse(storedExpenses));
+  }
+}, []);
+
+useEffect(() => {
+  if (hasMounted.current) {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  } else {
+    hasMounted.current = true;
+  }
+}, [expenses]);
 
   const addExpense = (expense) => {
     setExpenses((prev) => [...prev, expense]);
