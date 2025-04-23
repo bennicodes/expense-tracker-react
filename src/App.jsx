@@ -24,7 +24,7 @@ function App() {
     const storedExpenses = localStorage.getItem("expenses");
     const parsedExpenses = storedExpenses ? JSON.parse(storedExpenses) : [];
     setExpenses(parsedExpenses);
-    setHasLoaded(true); // unlock saving
+    setHasLoaded(true); // unlock saved expenses
   }, []);
 
   useEffect(() => {
